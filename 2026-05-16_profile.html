@@ -17,18 +17,18 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg-color: #0f172a;
-            --surface-color: #1e293b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent-blue: #3b82f6;
-            --accent-gold: #fbbf24;
-            --accent-orange: #f97316;
-            --accent-green: #10b981;
+            --bg-color: #1a2412; /* Deep jungle green */
+            --surface-color: #3b2f21; /* Dark wood/mud */
+            --text-main: #fcf6e3;
+            --text-muted: #d4cbb8;
+            --accent-tiger: #f97316;
+            --accent-lion: #fbbf24;
+            --accent-jungle: #22c55e;
+            --accent-gorilla: #94a3b8;
         }
 
         * {
@@ -38,8 +38,13 @@
         }
 
         body {
-            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            font-family: 'Noto Sans JP', sans-serif;
             background-color: var(--bg-color);
+            background-image: 
+                linear-gradient(45deg, rgba(0,0,0,0.2) 25%, transparent 25%, transparent 75%, rgba(0,0,0,0.2) 75%, rgba(0,0,0,0.2)), 
+                linear-gradient(45deg, rgba(0,0,0,0.2) 25%, transparent 25%, transparent 75%, rgba(0,0,0,0.2) 75%, rgba(0,0,0,0.2));
+            background-size: 60px 60px;
+            background-position: 0 0, 30px 30px;
             color: var(--text-main);
             line-height: 1.6;
         }
@@ -53,46 +58,70 @@
 
         /* Hero Section */
         .hero {
-            padding: 100px 0 60px;
+            padding: 80px 0 60px;
             text-align: center;
         }
 
         .hero h1 {
-            font-size: 3rem;
-            font-weight: 900;
+            font-family: 'Anton', sans-serif;
+            font-size: 4rem;
+            letter-spacing: 3px;
             margin-bottom: 20px;
-            background: linear-gradient(135deg, var(--accent-blue), #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--accent-lion);
+            text-transform: uppercase;
+            text-shadow: 5px 5px 0px #000, -2px -2px 0px #4d2e12;
+            transform: rotate(-2deg);
         }
 
         .hero p {
             font-size: 1.2rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto;
+            font-weight: 700;
+            color: #fff;
+            background: rgba(0,0,0,0.5);
+            display: inline-block;
+            padding: 15px 25px;
+            border-radius: 8px;
+            border: 2px dashed var(--accent-jungle);
+            max-width: 650px;
         }
 
         /* Cards Grid */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            padding: 40px 0 80px;
+            gap: 40px;
+            padding: 20px 0 80px;
         }
 
         .card {
             background-color: var(--surface-color);
-            border-radius: 16px;
+            border-radius: 4px;
             padding: 40px 30px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 5px solid #2a2016;
+            box-shadow: 8px 8px 0px #000;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             position: relative;
             overflow: hidden;
         }
 
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: repeating-linear-gradient(
+                -45deg,
+                rgba(0,0,0,0.08),
+                rgba(0,0,0,0.08) 15px,
+                transparent 15px,
+                transparent 30px
+            );
+            pointer-events: none;
+        }
+
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transform: scale(1.05) translateY(-5px) rotate(1deg);
+            box-shadow: 15px 15px 0px rgba(0, 0, 0, 0.9);
+            border-color: var(--accent-tiger);
         }
 
         /* Top decorative line for cards */
@@ -102,54 +131,75 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 4px;
+            height: 12px;
+            z-index: 2;
         }
 
-        .card.teacher::before { background-color: var(--accent-blue); }
-        .card.bjj::before { background-color: var(--accent-gold); }
-        .card.crypto::before { background-color: var(--accent-orange); }
-        .card.food::before { background-color: var(--accent-green); }
+        /* Animal Prints */
+        .card.teacher::before { background: repeating-linear-gradient(45deg, #fff, #fff 10px, #000 10px, #000 20px); } /* Zebra */
+        .card.bjj::before { background: radial-gradient(circle, #000 30%, #fbbf24 30%); background-size: 20px 20px; } /* Cheetah */
+        .card.crypto::before { background: repeating-linear-gradient(90deg, #f97316, #f97316 15px, #000 15px, #000 25px); } /* Tiger */
+        .card.food::before { background: repeating-radial-gradient(circle, #22c55e, #22c55e 5px, #14532d 5px, #14532d 10px); } /* Snake/Lizard */
 
         .card h2 {
-            font-size: 1.5rem;
+            font-family: 'Anton', sans-serif;
+            font-size: 2.2rem;
             margin-bottom: 15px;
             display: flex;
             align-items: center;
             gap: 10px;
+            color: #fff;
+            letter-spacing: 2px;
+            text-shadow: 3px 3px 0 #000;
+            position: relative;
+            z-index: 1;
         }
 
         .card p {
-            color: var(--text-muted);
-            margin-bottom: 20px;
+            color: var(--text-main);
+            margin-bottom: 25px;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
         }
 
         .tags {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
+            position: relative;
+            z-index: 1;
         }
 
         .tag {
-            background: rgba(255, 255, 255, 0.1);
+            background: #2a2016;
+            color: var(--accent-lion);
+            border: 2px solid #000;
             padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
+            font-size: 0.9rem;
+            font-weight: 900;
+            box-shadow: 3px 3px 0 #000;
+            transform: rotate(-1deg);
+        }
+        
+        .tag:nth-child(even) {
+            transform: rotate(2deg);
         }
 
         /* Footer */
         footer {
             text-align: center;
             padding: 40px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background: #000;
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-weight: bold;
+            border-top: 5px dashed var(--accent-jungle);
         }
 
         /* Responsive */
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 2.2rem;
+                font-size: 2.8rem;
             }
             .grid {
                 grid-template-columns: 1fr;
@@ -162,8 +212,8 @@
     <div class="container">
         <!-- Hero Section -->
         <section class="hero">
-            <h1>Welcome to My Profile</h1>
-            <p>教育、武術、そして最新テクノロジー。異なる3つの領域で挑戦を続ける、私の活動の記録です。</p>
+            <h1>Welcome to the Wild</h1>
+            <p>教育、武術、そして最新テクノロジー。異なる3つのジャングルでサバイバルを続ける、私の活動の記録です。🦁</p>
         </section>
 
         <!-- Main Content Grid -->
@@ -171,30 +221,30 @@
             
             <!-- Educator -->
             <div class="card teacher">
-                <h2>📚 Educator</h2>
-                <p>公立高校の英語教師として20年以上のキャリアを持っています。生徒たちと向き合い、日々教育の現場で指導にあたっています。</p>
+                <h2>🦓 Educator</h2>
+                <p>公立高校の英語教師として20年以上のサバイバルを経験。生徒たちと向き合い、過酷な教育のジャングルを生き抜いています。</p>
                 <div class="tags">
                     <span class="tag">高校教師</span>
                     <span class="tag">英語担当</span>
-                    <span class="tag">歴20年以上</span>
+                    <span class="tag">サバイバル歴20年</span>
                 </div>
             </div>
 
             <!-- Brazilian Jiu-Jitsu -->
             <div class="card bjj">
-                <h2>🥋 Brazilian Jiu-Jitsu</h2>
-                <p>ブラジリアン柔術を15年以上続けており、黒帯を取得しました。競技者としても活動し、最高日本ランキング3位の実績があります。</p>
+                <h2>🐆 BJJ Black Belt</h2>
+                <p>ブラジリアン柔術を15年以上続け、黒帯という牙を手に入れました。野生の闘争本能を磨き、最高日本ランク3位に噛みつきました。</p>
                 <div class="tags">
                     <span class="tag">黒帯</span>
-                    <span class="tag">歴15年以上</span>
+                    <span class="tag">歴15年</span>
                     <span class="tag">日本ランク最高3位</span>
                 </div>
             </div>
 
             <!-- Web3 / Crypto -->
             <div class="card crypto">
-                <h2>⛓️ Web3 & Crypto</h2>
-                <p>2017年からビットコインを購入し、「ガチホ」を貫いています。2021年からはNFTにも参入し、日本最大のNFTプロジェクト「CNP」のホルダーでもあります。</p>
+                <h2>🐅 Web3 & Crypto</h2>
+                <p>2017年からビットコインという獲物を「ガチホ」で離しません。NFTジャングルにも参入し、最大派閥「CNP」の群れに属しています。</p>
                 <div class="tags">
                     <span class="tag">Bitcoin (2017~)</span>
                     <span class="tag">NFT (2021~)</span>
@@ -204,13 +254,13 @@
 
             <!-- Favorite Foods -->
             <div class="card food">
-                <h2>🍛 Favorite Foods</h2>
-                <p>焼き肉、寿司、ラーメン、カレーライスが大好きです。美味しいものを食べることで日々の活力を得ています。</p>
+                <h2>🐊 Favorite Foods</h2>
+                <p>焼き肉、寿司、ラーメン、カレーライスを喰らい尽くします。野生のパワーの源は、毎日の豪快な食事にあります。</p>
                 <div class="tags">
-                    <span class="tag">焼き肉</span>
-                    <span class="tag">寿司</span>
-                    <span class="tag">ラーメン</span>
-                    <span class="tag">カレーライス</span>
+                    <span class="tag">肉🍖</span>
+                    <span class="tag">魚🐟</span>
+                    <span class="tag">麺🍜</span>
+                    <span class="tag">カレー🍛</span>
                 </div>
             </div>
 
@@ -219,7 +269,7 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2026 My Portfolio. All rights reserved.</p>
+        <p>&copy; 2026 The Wild Portfolio. All instincts reserved.</p>
     </footer>
 
 </body>
